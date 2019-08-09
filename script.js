@@ -74,12 +74,36 @@ Student.prototype.addMark = function (lessonNumber, mark) {
 	this.marks[lessonNumber - 1] = mark;
 };
 
+//////////////////////////////////////////////////////////////////
+///////Это решение дает неверный результат если оценок больше двух!!!
+// Student.prototype.averageMark = function () {
+
+//     return this.marks.reduce ( function (mark1, mark2) {
+//         return (mark1 + mark2) / 2;
+//     }, this.marks[0]);
+// };
+
 Student.prototype.averageMark = function () {
 
-    return this.marks.reduce ( function (mark1, mark2) {
-        return (mark1 + mark2) / 2;
-    }, this.marks[0]);
+    var sum = this.marks.reduce ( function (sum, mark) {
+        return sum += mark;
+	}, 0);
+	
+	return sum / this.marks.length;
 };
+
+
+//////////////////////////////////////////////////////////////////
+///////Это решение дает неверный результат если оценок больше двух!!!
+// Group.prototype.averageGroupMark = function (lessonNumber) {
+
+// 	return this.reduce (function (mark1, mark2){
+
+// 		return (mark1 + (mark2.marks[lessonNumber-1] || 0)) / 2;
+// 	},this[0].marks[lessonNumber-1]);
+// };
+//////////////////////////////////////////////////////////////////
+
 
 Group.prototype.averageGroupMark = function (lessonNumber) {
 
@@ -165,12 +189,17 @@ sally.addMark(3, 5);
 
 console.log (andy.averageMark());
 console.log (nick.averageMark());
+console.log (sally.averageMark());
+
+console.log ('================================');
 
 // получение средней оценки группы за занятие:
 
 console.log (group.averageGroupMark(1));
 console.log (group.averageGroupMark(2));
 console.log (group.averageGroupMark(3));
+
+console.log ('================================');
 
 // получение отсортированного по именам списка студентов:
 
@@ -179,6 +208,8 @@ console.log (group.averageGroupMark(3));
 var sortByName = group.getSortByName().slice();
 
 console.log (sortByName);
+
+console.log ('================================');
 
 // получение отсортированного по среднему балу списка студентов 
 // (от максимального к минимальному):
